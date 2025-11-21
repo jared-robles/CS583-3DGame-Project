@@ -10,4 +10,6 @@ Goals, how to play, controls
 
 ## General Goals for Each Member
 
-
+Level Design: Brandon Perillo
+Game Mechanics/Programming: Jared Robles, Justin Aguiluz
+UI Design: Justin Cruz
