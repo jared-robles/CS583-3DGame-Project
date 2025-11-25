@@ -90,8 +90,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0
+        time: 0.10364684
+        value: 0.16666666
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -278,6 +278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BallController
   shotPower: 10
   stopVelocity: 0.05
+  maxDragDistance: 5
   lineRenderer: {fileID: 4443999278372620760}
   groundMask:
     serializedVersion: 2

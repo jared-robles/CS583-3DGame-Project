@@ -30,23 +30,24 @@ public class BallCam : MonoBehaviour
         camOrbit = GetComponent<CinemachineOrbitalFollow>(); // Get a reference to the Cinemachine Orbit Follow component
         moveCamera = InputSystem.actions.FindAction("ClickDrag"); // Set as right-click and drag
         zoomCamera = InputSystem.actions.FindAction("Zoom"); // Set as the mouse scroll wheel
+
+        moveCamera.Enable();
+        zoomCamera.Enable();
     }
 
     void Update()
     {
-        // Read the delta value from user input (right-click and drag)
-        // Use the delta value and the sensitivity to move the camera's horizontal and vertical axes
-        Vector2 delta = moveCamera.ReadValue<Vector2>();
-        camOrbit.HorizontalAxis.Value += delta.x * lookSensitivity * Time.deltaTime;
-        camOrbit.VerticalAxis.Value += delta.y * lookSensitivity * Time.deltaTime;
+        // Only move when right mouse button is held
+        if (Mouse.current != null && Mouse.current.rightButton.isPressed)
+        {
+            Vector2 delta = moveCamera.ReadValue<Vector2>();
+            camOrbit.HorizontalAxis.Value += delta.x * lookSensitivity * Time.deltaTime;
+            camOrbit.VerticalAxis.Value -= delta.y * lookSensitivity * Time.deltaTime;
+        }
 
-        // Read the float value from user input (scroll wheel)
-        // Store the current radial axis value and add the zoom factor to it
-        // Zoom values are clamped between minRange and maxRange
         float rad = zoomCamera.ReadValue<float>();
         float currRad = camOrbit.RadialAxis.Value;
         float zoomVal = currRad + (rad * zoomSensitivity * Time.deltaTime);
         camOrbit.RadialAxis.Value = Mathf.Clamp(zoomVal, minRange, maxRange);
-        
     }
 }

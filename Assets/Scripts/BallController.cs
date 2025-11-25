@@ -18,7 +18,23 @@ public class BallController : MonoBehaviour
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
-        if (lineRenderer) { lineRenderer.enabled = false; lineRenderer.positionCount = 2; }
+
+        if (lineRenderer)
+        {
+            lineRenderer.enabled = false;
+            lineRenderer.positionCount = 2;
+
+          
+            lineRenderer.useWorldSpace = true;
+            lineRenderer.alignment = LineAlignment.TransformZ; 
+
+           
+            lineRenderer.transform.forward = Vector3.up;
+
+            
+            lineRenderer.startWidth = 0.1f;
+            lineRenderer.endWidth = 0.1f;
+        }
     }
 
     void FixedUpdate()
@@ -72,8 +88,19 @@ public class BallController : MonoBehaviour
     void DrawLine(Vector3 worldPoint)
     {
         if (!lineRenderer) return;
+
+        // same math as Shoot() so the line matches the real shot
+        Vector3 p = new Vector3(worldPoint.x, transform.position.y, worldPoint.z);
+        Vector3 dir = (p - transform.position);
+        float drag = Mathf.Min(dir.magnitude, maxDragDistance); // clamp drag like Shoot()
+        Vector3 direction = dir.sqrMagnitude > 0.0001f ? dir.normalized : transform.forward;
+
+        // line starts at the ball, lifted a bit
         Vector3 start = transform.position + Vector3.up * lineLift;
-        Vector3 end = new Vector3(worldPoint.x, transform.position.y + lineLift, worldPoint.z);
+        // we shoot opposite the drag, so point the arrow that way and scale by drag
+        Vector3 end = start - direction * drag;
+
+        lineRenderer.positionCount = 2;
         lineRenderer.SetPosition(0, start);
         lineRenderer.SetPosition(1, end);
         lineRenderer.enabled = true;

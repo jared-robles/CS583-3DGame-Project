@@ -1,0 +1,55 @@
+{
+    "version": 1,
+    "name": "Camera Actions",
+    "maps": [
+        {
+            "name": "Camera",
+            "id": "239be252-fc51-4dce-94df-c5d3fc874471",
+            "actions": [
+                {
+                    "name": "ClickDrag",
+                    "type": "Value",
+                    "id": "8f481e96-eacd-4f13-a4ca-2b9917344b52",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Zoom",
+                    "type": "Value",
+                    "id": "11097421-bd24-4e10-b1fe-990025df171a",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a656a4cb-d1c7-4eb3-8a08-4fb8993e6ae1",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ClickDrag",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "41d03144-5b23-4324-a126-82f6ba051c5e",
+                    "path": "<Mouse>/scroll/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
