@@ -15,5 +15,5 @@ EditorBuildSettings:
     path: Assets/TestCourse.unity
     guid: 500a2dc559038450f91d6ea6a5fb6aa1
   m_configObjects:
-    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: f4d921451a33fe143a69fe5bbb2dbd21, type: 3}
   m_UseUCBPForAssetBundles: 0
