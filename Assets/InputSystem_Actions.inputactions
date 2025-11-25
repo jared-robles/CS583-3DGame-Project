@@ -998,7 +998,7 @@
             "actions": [
                 {
                     "name": "ClickDrag",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "33ececf9-50c7-4287-a67f-87d737a05d08",
                     "expectedControlType": "Vector2",
                     "processors": "",
