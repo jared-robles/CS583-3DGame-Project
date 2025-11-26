@@ -141,4 +141,12 @@ public class BallController : MonoBehaviour
             return hit.point;
         return null;
     }
+
+    // Detects when the golf ball enters a trigger
+    void OnTriggerEnter(Collider other)
+    {
+        // Check if the trigger is the course hole using its tag and destroy the golf ball
+        // Trigger must use the "Hole" tag
+        if (other.CompareTag("Hole")) Destroy(this.gameObject);
+    }
 }
