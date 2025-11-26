@@ -24,14 +24,13 @@ public class BallController : MonoBehaviour
             lineRenderer.enabled = false;
             lineRenderer.positionCount = 2;
 
-          
+    
             lineRenderer.useWorldSpace = true;
-            lineRenderer.alignment = LineAlignment.TransformZ; 
 
-           
+            lineRenderer.alignment = LineAlignment.TransformZ;
+
             lineRenderer.transform.forward = Vector3.up;
 
-            
             lineRenderer.startWidth = 0.1f;
             lineRenderer.endWidth = 0.1f;
         }
