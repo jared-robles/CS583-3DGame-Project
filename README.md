@@ -6,6 +6,8 @@ Members: Jared Robles, Justin Cruz, Brandon Perillo, Justin Aguiluz
 
 The game aims to simulate mini golf, featuring many courses with a low-poly style and simple mechanics that follow the rules of mini golf as closely as possible. As in mini golf, the player needs to get the ball to the end of the course and score a hole in as few strokes as possible and maintain a low score.
 
+Video for halfway review: https://drive.google.com/file/d/1Un-6KlwvzNneO7xnPo4jNVVeTDAQfYTw/view?usp=sharing
+
 ### Controls
 
 - Left mouse button: Shoot the ball while aiming with the mouse cursor.
