@@ -1450,6 +1450,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5974799667892833648, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
+      propertyPath: par
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5974799667892833648, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
       propertyPath: shotPower
       value: 1
       objectReference: {fileID: 0}
