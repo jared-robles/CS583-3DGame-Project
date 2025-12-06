@@ -11,6 +11,10 @@ public class BallController : MonoBehaviour
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float lineLift = 0.05f;
 
+    // Scoring purposes
+    [SerializeField] private int par = 3; // Amount of strokes expected to clear the course
+    private int hits; // Ball hit counter
+
     private bool isIdle = true;
     private bool isAiming;
     private new Rigidbody rigidbody;
@@ -24,14 +28,13 @@ public class BallController : MonoBehaviour
             lineRenderer.enabled = false;
             lineRenderer.positionCount = 2;
 
-          
+    
             lineRenderer.useWorldSpace = true;
-            lineRenderer.alignment = LineAlignment.TransformZ; 
 
-           
+            lineRenderer.alignment = LineAlignment.TransformZ;
+
             lineRenderer.transform.forward = Vector3.up;
 
-            
             lineRenderer.startWidth = 0.1f;
             lineRenderer.endWidth = 0.1f;
         }
@@ -80,9 +83,12 @@ public class BallController : MonoBehaviour
         rigidbody.WakeUp();
         rigidbody.AddForce(impulse, ForceMode.Impulse);
 
+        hits++; // Increment hit counter
+
         isIdle = false;
 
         Debug.Log($"Shoot() impulse: {impulse}, drag:{drag:F2}, shotPower:{shotPower}");
+        Debug.Log($"Strokes: {hits} out of {par} pars");
     }
 
     void DrawLine(Vector3 worldPoint)
@@ -141,5 +147,20 @@ public class BallController : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, 200f, groundMask, QueryTriggerInteraction.Ignore))
             return hit.point;
         return null;
+    }
+
+    // Detects when the golf ball enters a trigger
+    void OnTriggerEnter(Collider other)
+    {
+        // Compare the stroke counter to the course's par count
+        // Currently prints a debug message, have a function that does comparison logic with some UI elements to show results?
+        if (hits == 1) Debug.Log("Hole in one!");
+        else if (hits > 1 && hits < par) Debug.Log("Birdie!");
+        else if (hits == par) Debug.Log("Par");
+        else Debug.Log("Bogey");
+
+        // Check if the trigger is the course hole using its tag and destroy the golf ball
+        // Trigger must use the "Hole" tag
+        if (other.CompareTag("Hole")) Destroy(this.gameObject);
     }
 }
