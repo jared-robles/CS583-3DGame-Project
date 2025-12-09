@@ -15,7 +15,7 @@ public class BallController : MonoBehaviour
     [SerializeField] private int par = 3; // Amount of strokes expected to clear the course
     private int strokes = 0; // Ball hit counter
     private StrokeCounter strokeCntr; // Stroke counter reference to script
-    private Counter parCntr; // Par counter reference to script
+    private ParCounter parCntr; // Par counter reference to script
 
     private bool isIdle = true;
     private bool isAiming;
@@ -41,12 +41,12 @@ public class BallController : MonoBehaviour
             lineRenderer.endWidth = 0.1f;
         }
 
-        // Get the references to the StrokeCounter and ParCounter (Counter) scripts
+        // Get the references to the StrokeCounter and ParCounter scripts
         // Prefab CounterUI must be in the scene
         if (GameObject.Find("CounterUI") != null)
         {
             strokeCntr = GameObject.FindGameObjectWithTag("StrokeCntr").GetComponent<StrokeCounter>();
-            parCntr = GameObject.FindGameObjectWithTag("ParCntr").GetComponent<Counter>();
+            parCntr = GameObject.FindGameObjectWithTag("ParCntr").GetComponent<ParCounter>();
 
             // Update the par counter with the starting par value
             parCntr.UpdatePar(par);

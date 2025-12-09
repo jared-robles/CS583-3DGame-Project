@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class Counter : MonoBehaviour
+public class ParCounter : MonoBehaviour
 {
     private TextMeshProUGUI _counter;
 
