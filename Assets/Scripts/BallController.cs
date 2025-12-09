@@ -13,7 +13,9 @@ public class BallController : MonoBehaviour
 
     // Scoring purposes
     [SerializeField] private int par = 3; // Amount of strokes expected to clear the course
-    private int hits; // Ball hit counter
+    private int strokes = 0; // Ball hit counter
+    private StrokeCounter strokeCntr; // Stroke counter reference to script
+    private Counter parCntr; // Par counter reference to script
 
     private bool isIdle = true;
     private bool isAiming;
@@ -37,6 +39,18 @@ public class BallController : MonoBehaviour
 
             lineRenderer.startWidth = 0.1f;
             lineRenderer.endWidth = 0.1f;
+        }
+
+        // Get the references to the StrokeCounter and ParCounter (Counter) scripts
+        // Prefab CounterUI must be in the scene
+        if (GameObject.Find("CounterUI") != null)
+        {
+            strokeCntr = GameObject.FindGameObjectWithTag("StrokeCntr").GetComponent<StrokeCounter>();
+            parCntr = GameObject.FindGameObjectWithTag("ParCntr").GetComponent<Counter>();
+
+            // Update the par counter with the starting par value
+            parCntr.UpdatePar(par);
+
         }
     }
 
@@ -83,12 +97,14 @@ public class BallController : MonoBehaviour
         rigidbody.WakeUp();
         rigidbody.AddForce(impulse, ForceMode.Impulse);
 
-        hits++; // Increment hit counter
+        // Increment hit counter and update the stroke counter
+        strokes++;
+        if (GameObject.Find("CounterUI") != null) strokeCntr.UpdateStrokes(strokes);
 
         isIdle = false;
 
         Debug.Log($"Shoot() impulse: {impulse}, drag:{drag:F2}, shotPower:{shotPower}");
-        Debug.Log($"Strokes: {hits} out of {par} pars");
+        Debug.Log($"Strokes: {strokes} out of {par} pars");
     }
 
     void DrawLine(Vector3 worldPoint)
@@ -154,13 +170,23 @@ public class BallController : MonoBehaviour
     {
         // Compare the stroke counter to the course's par count
         // Currently prints a debug message, have a function that does comparison logic with some UI elements to show results?
-        if (hits == 1) Debug.Log("Hole in one!");
-        else if (hits > 1 && hits < par) Debug.Log("Birdie!");
-        else if (hits == par) Debug.Log("Par");
+        if (strokes == 1) Debug.Log("Hole in one!");
+        else if (strokes > 1 && strokes < par) Debug.Log("Birdie!");
+        else if (strokes == par) Debug.Log("Par");
         else Debug.Log("Bogey");
 
         // Check if the trigger is the course hole using its tag and destroy the golf ball
         // Trigger must use the "Hole" tag
         if (other.CompareTag("Hole")) Destroy(this.gameObject);
+    }
+
+    public int GetParCount()
+    {
+        return par;
+    }
+
+    public int GetStrokeCount()
+    {
+        return strokes;
     }
 }
