@@ -1,10 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class BallController : MonoBehaviour
 {
     [SerializeField] private float shotPower = 20f;
-    [SerializeField] private float stopVelocity = 0.05f;
+    [SerializeField] private float stopVelocity = 0.01f;
     [SerializeField] private float maxDragDistance = 5f; // clamp power
 
     [SerializeField] private LineRenderer lineRenderer;
@@ -30,11 +30,8 @@ public class BallController : MonoBehaviour
             lineRenderer.enabled = false;
             lineRenderer.positionCount = 2;
 
-    
             lineRenderer.useWorldSpace = true;
-
             lineRenderer.alignment = LineAlignment.TransformZ;
-
             lineRenderer.transform.forward = Vector3.up;
 
             lineRenderer.startWidth = 0.1f;
@@ -56,22 +53,38 @@ public class BallController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (rigidbody.linearVelocity.magnitude < stopVelocity)
-            Stop();
+        // Keep isIdle in sync with the real velocity
+        float speedSq = rigidbody.linearVelocity.sqrMagnitude;
+        float stopVelSq = stopVelocity * stopVelocity;
+
+        if (speedSq < stopVelSq)
+        {
+            // Only call Stop when we actually transition from moving -> idle
+            if (!isIdle)
+                Stop();
+        }
+        else
+        {
+            // Ball is clearly moving
+            isIdle = false;
+        }
     }
 
     void Update()
     {
+        // Only start aiming if ball is idle
         if (!isAiming && isIdle && PressedThisFrame())
         {
             isAiming = true;
             rigidbody.Sleep();
         }
+
         ProcessAim();
     }
 
     void ProcessAim()
     {
+        // Don't aim if not in aiming mode or ball is not idle
         if (!isAiming || !isIdle) return;
 
         var worldPoint = CastPointerRay();
@@ -101,6 +114,7 @@ public class BallController : MonoBehaviour
         strokes++;
         if (GameObject.Find("CounterUI") != null) strokeCntr.UpdateStrokes(strokes);
 
+        // We just shot, so ball is not idle anymore
         isIdle = false;
 
         Debug.Log($"Shoot() impulse: {impulse}, drag:{drag:F2}, shotPower:{shotPower}");
@@ -141,11 +155,13 @@ public class BallController : MonoBehaviour
         if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.wasPressedThisFrame) return true;
         return Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame;
     }
+
     bool ReleasedThisFrame()
     {
         if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.wasReleasedThisFrame) return true;
         return Mouse.current != null && Mouse.current.leftButton.wasReleasedThisFrame;
     }
+
     Vector2 PointerScreenPosition()
     {
         if (Touchscreen.current != null) return Touchscreen.current.primaryTouch.position.ReadValue();
@@ -160,24 +176,25 @@ public class BallController : MonoBehaviour
 
         Vector2 pos = PointerScreenPosition();
         Ray ray = cam.ScreenPointToRay(new Vector3(pos.x, pos.y, 0f));
-        if (Physics.Raycast(ray, out RaycastHit hit, 200f, groundMask, QueryTriggerInteraction.Ignore))
-            return hit.point;
+
+        // Infinite plane at the ball's height (XZ plane)
+        Plane plane = new Plane(Vector3.up, new Vector3(0f, transform.position.y, 0f));
+
+        if (plane.Raycast(ray, out float enter))
+        {
+            Vector3 hitPoint = ray.GetPoint(enter);
+            return hitPoint;
+        }
+
         return null;
     }
+
 
     // Detects when the golf ball enters a trigger
     void OnTriggerEnter(Collider other)
     {
-        // Compare the stroke counter to the course's par count
-        // Currently prints a debug message, have a function that does comparison logic with some UI elements to show results?
-        if (strokes == 1) Debug.Log("Hole in one!");
-        else if (strokes > 1 && strokes < par) Debug.Log("Birdie!");
-        else if (strokes == par) Debug.Log("Par");
-        else Debug.Log("Bogey");
-
-        // Check if the trigger is the course hole using its tag and destroy the golf ball
-        // Trigger must use the "Hole" tag
-        if (other.CompareTag("Hole")) Destroy(this.gameObject);
+        if (other.CompareTag("Hole"))
+            Destroy(this.gameObject);
     }
 
     public int GetParCount()
