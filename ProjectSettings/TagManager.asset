@@ -8,6 +8,7 @@ TagManager:
   - Hole
   - ParCntr
   - StrokeCntr
+  - OutOfBounds
   layers:
   - Default
   - TransparentFX

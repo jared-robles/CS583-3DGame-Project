@@ -22,9 +22,12 @@ public class BallController : MonoBehaviour
     private bool inHole;
     private new Rigidbody rigidbody;
 
+    private Respawn respawn;
+
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+        respawn = GetComponent<Respawn>();
 
         if (lineRenderer)
         {
@@ -94,7 +97,11 @@ public class BallController : MonoBehaviour
 
     void Shoot(Vector3 worldPoint)
     {
+
+        if (respawn != null) respawn.SaveShotCheckpoint();
+
         isAiming = false;
+
         if (lineRenderer) lineRenderer.enabled = false;
 
         Vector3 p = new Vector3(worldPoint.x, transform.position.y, worldPoint.z);
