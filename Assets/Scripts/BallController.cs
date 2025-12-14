@@ -19,6 +19,7 @@ public class BallController : MonoBehaviour
 
     private bool isIdle = true;
     private bool isAiming;
+    private bool inHole;
     private new Rigidbody rigidbody;
 
     void Awake()
@@ -38,16 +39,11 @@ public class BallController : MonoBehaviour
             lineRenderer.endWidth = 0.1f;
         }
 
-        // Get the references to the StrokeCounter and ParCounter scripts
+        // Get the references to the StrokeCounter script
         // Prefab CounterUI must be in the scene
         if (GameObject.Find("CounterUI") != null)
         {
             strokeCntr = GameObject.FindGameObjectWithTag("StrokeCntr").GetComponent<StrokeCounter>();
-            parCntr = GameObject.FindGameObjectWithTag("ParCntr").GetComponent<ParCounter>();
-
-            // Update the par counter with the starting par value
-            parCntr.UpdatePar(par);
-
         }
     }
 
@@ -73,7 +69,7 @@ public class BallController : MonoBehaviour
     void Update()
     {
         // Only start aiming if ball is idle
-        if (!isAiming && isIdle && PressedThisFrame())
+        if (!isAiming && isIdle && PressedThisFrame() && !inHole)
         {
             isAiming = true;
             rigidbody.Sleep();
@@ -84,8 +80,8 @@ public class BallController : MonoBehaviour
 
     void ProcessAim()
     {
-        // Don't aim if not in aiming mode or ball is not idle
-        if (!isAiming || !isIdle) return;
+        // Don't aim if not in aiming mode, ball is not idle, or is in hole
+        if (!isAiming || !isIdle || inHole) return;
 
         var worldPoint = CastPointerRay();
         if (!worldPoint.HasValue) return;
@@ -118,7 +114,6 @@ public class BallController : MonoBehaviour
         isIdle = false;
 
         Debug.Log($"Shoot() impulse: {impulse}, drag:{drag:F2}, shotPower:{shotPower}");
-        Debug.Log($"Strokes: {strokes} out of {par} pars");
     }
 
     void DrawLine(Vector3 worldPoint)
@@ -194,7 +189,7 @@ public class BallController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Hole"))
-            Destroy(this.gameObject);
+            inHole = true;
     }
 
     public int GetParCount()
@@ -205,5 +200,10 @@ public class BallController : MonoBehaviour
     public int GetStrokeCount()
     {
         return strokes;
+    }
+
+    public bool GetGoalStatus()
+    {
+        return inHole;
     }
 }

@@ -167,10 +167,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3711492540782835371, guid: a2cc92e33e932b843a0de8bb6d01ec37, type: 3}
-      propertyPath: lookSensitivity
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 5496875168217767129, guid: a2cc92e33e932b843a0de8bb6d01ec37, type: 3}
       propertyPath: m_Name
       value: BallCam
@@ -507,9 +503,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 1
-  far clip plane: 500
-  field of view: 25
+  near clip plane: 0.5
+  far clip plane: 100
+  field of view: 30
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -1466,53 +1462,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3200305350962874458, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
-      propertyPath: m_Mass
-      value: 0.12
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200305350962874458, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
-      propertyPath: m_LinearDamping
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3200305350962874458, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
-      propertyPath: m_AngularDamping
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 4443999278372620760, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
-      propertyPath: m_Parameters.colorGradient.ctime0
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4443999278372620760, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
-      propertyPath: m_Parameters.colorGradient.key1.b
-      value: 0.18244925
-      objectReference: {fileID: 0}
-    - target: {fileID: 4443999278372620760, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
-      propertyPath: m_Parameters.colorGradient.key1.g
-      value: 0.83418447
-      objectReference: {fileID: 0}
-    - target: {fileID: 4443999278372620760, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
-      propertyPath: m_Parameters.colorGradient.key1.r
-      value: 0.9433962
-      objectReference: {fileID: 0}
-    - target: {fileID: 4443999278372620760, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
-      value: 0.32821655
-      objectReference: {fileID: 0}
-    - target: {fileID: 4443999278372620760, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
-      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
-      value: 0.36250305
-      objectReference: {fileID: 0}
     - target: {fileID: 4776879002687012002, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
       propertyPath: m_Name
       value: Golf Ball
       objectReference: {fileID: 0}
-    - target: {fileID: 4776879002687012002, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
-      propertyPath: m_TagString
-      value: Ball
-      objectReference: {fileID: 0}
     - target: {fileID: 5260541400526497304, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.004
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5260541400526497304, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1520,7 +1476,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5260541400526497304, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.38624
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5260541400526497304, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1549,18 +1505,6 @@ PrefabInstance:
     - target: {fileID: 5260541400526497304, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5974799667892833648, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
-      propertyPath: par
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5974799667892833648, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
-      propertyPath: shotPower
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5974799667892833648, guid: 738123bdac3c2e24998f3c30f9be177e, type: 3}
-      propertyPath: maxDragDistance
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
