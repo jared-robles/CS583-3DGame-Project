@@ -90,8 +90,8 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.005754076
-        value: 0.029169708
+        time: 0.32821655
+        value: 0.36250305
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -104,7 +104,7 @@ LineRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 0.9433962, g: 0.83418447, b: 0.18244925, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 0.9433962, g: 0.83418447, b: 0.18244925, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -156,7 +156,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4731e57bf9d754009bad19194ed399fe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.299
+      value: 0.379
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4731e57bf9d754009bad19194ed399fe, type: 3}
       propertyPath: m_LocalPosition.z
@@ -194,6 +194,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Golf Ball
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4731e57bf9d754009bad19194ed399fe, type: 3}
+      propertyPath: m_TagString
+      value: Ball
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -224,9 +228,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4776879002687012002}
   serializedVersion: 5
-  m_Mass: 0.2
-  m_LinearDamping: 0.1
-  m_AngularDamping: 0.1
+  m_Mass: 0.12
+  m_LinearDamping: 0.5
+  m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -276,14 +280,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 668e3248425771f438f51c6b0beea97d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallController
-  shotPower: 10
+  shotPower: 1
   stopVelocity: 0.05
-  maxDragDistance: 5
+  maxDragDistance: 1
   lineRenderer: {fileID: 4443999278372620760}
   groundMask:
     serializedVersion: 2
     m_Bits: 128
   lineLift: 0.003
+  par: 3
 --- !u!4 &5260541400526497304 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4731e57bf9d754009bad19194ed399fe, type: 3}

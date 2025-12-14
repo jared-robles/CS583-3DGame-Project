@@ -13,10 +13,13 @@ public class BallController : MonoBehaviour
 
     // Scoring purposes
     [SerializeField] private int par = 3; // Amount of strokes expected to clear the course
-    private int hits; // Ball hit counter
+    private int strokes = 0; // Ball hit counter
+    private StrokeCounter strokeCntr; // Stroke counter reference to script
+    private ParCounter parCntr; // Par counter reference to script
 
     private bool isIdle = true;
     private bool isAiming;
+    private bool inHole;
     private new Rigidbody rigidbody;
 
     void Awake()
@@ -34,6 +37,13 @@ public class BallController : MonoBehaviour
 
             lineRenderer.startWidth = 0.1f;
             lineRenderer.endWidth = 0.1f;
+        }
+
+        // Get the references to the StrokeCounter script
+        // Prefab CounterUI must be in the scene
+        if (GameObject.Find("CounterUI") != null)
+        {
+            strokeCntr = GameObject.FindGameObjectWithTag("StrokeCntr").GetComponent<StrokeCounter>();
         }
     }
 
@@ -59,7 +69,7 @@ public class BallController : MonoBehaviour
     void Update()
     {
         // Only start aiming if ball is idle
-        if (!isAiming && isIdle && PressedThisFrame())
+        if (!isAiming && isIdle && PressedThisFrame() && !inHole)
         {
             isAiming = true;
             rigidbody.Sleep();
@@ -70,8 +80,8 @@ public class BallController : MonoBehaviour
 
     void ProcessAim()
     {
-        // Don't aim if not in aiming mode or ball is not idle
-        if (!isAiming || !isIdle) return;
+        // Don't aim if not in aiming mode, ball is not idle, or is in hole
+        if (!isAiming || !isIdle || inHole) return;
 
         var worldPoint = CastPointerRay();
         if (!worldPoint.HasValue) return;
@@ -96,13 +106,14 @@ public class BallController : MonoBehaviour
         rigidbody.WakeUp();
         rigidbody.AddForce(impulse, ForceMode.Impulse);
 
-        hits++; // Increment hit counter
+        // Increment hit counter and update the stroke counter
+        strokes++;
+        if (GameObject.Find("CounterUI") != null) strokeCntr.UpdateStrokes(strokes);
 
         // We just shot, so ball is not idle anymore
         isIdle = false;
 
         Debug.Log($"Shoot() impulse: {impulse}, drag:{drag:F2}, shotPower:{shotPower}");
-        Debug.Log($"Strokes: {hits} out of {par} pars");
     }
 
     void DrawLine(Vector3 worldPoint)
@@ -177,12 +188,22 @@ public class BallController : MonoBehaviour
     // Detects when the golf ball enters a trigger
     void OnTriggerEnter(Collider other)
     {
-        if (hits == 1) Debug.Log("Hole in one!");
-        else if (hits > 1 && hits < par) Debug.Log("Birdie!");
-        else if (hits == par) Debug.Log("Par");
-        else Debug.Log("Bogey");
-
         if (other.CompareTag("Hole"))
-            Destroy(this.gameObject);
+            inHole = true;
+    }
+
+    public int GetParCount()
+    {
+        return par;
+    }
+
+    public int GetStrokeCount()
+    {
+        return strokes;
+    }
+
+    public bool GetGoalStatus()
+    {
+        return inHole;
     }
 }

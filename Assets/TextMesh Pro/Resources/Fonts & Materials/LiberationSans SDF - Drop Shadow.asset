@@ -13,6 +13,7 @@ Material:
   m_ModifiedSerializedProperties: 2
   m_ValidKeywords:
   - OUTLINE_ON
+  - UNDERLAY_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
@@ -29,7 +30,11 @@ Material:
     - _FaceDilate: 0
     - _OutlineWidth: 0.25
     - _ScaleRatioB: 1
-    - _ScaleRatioC: 0.73125
+    - _ScaleRatioC: 0.5322053
+    - _UnderlayDilate: -0.12
+    - _UnderlayOffsetX: 1
+    - _UnderlayOffsetY: -1
+    - _UnderlaySoftness: 0.494
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
@@ -43,7 +48,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: LiberationSans SDF
+  m_Name: LiberationSans SDF - Drop Shadow
   m_EditorClassIdentifier: 
   m_Version: 1.1.0
   m_FaceInfo:
