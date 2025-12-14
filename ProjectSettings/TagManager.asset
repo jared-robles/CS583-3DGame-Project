@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ball
   - Hole
+  - ParCntr
+  - StrokeCntr
   layers:
   - Default
   - TransparentFX
