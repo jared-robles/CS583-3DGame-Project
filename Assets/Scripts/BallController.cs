@@ -12,10 +12,8 @@ public class BallController : MonoBehaviour
     [SerializeField] private float lineLift = 0.05f;
 
     // Scoring purposes
-    [SerializeField] private int par = 3; // Amount of strokes expected to clear the course
     private int strokes = 0; // Ball hit counter
     private StrokeCounter strokeCntr; // Stroke counter reference to script
-    private ParCounter parCntr; // Par counter reference to script
 
     private bool isIdle = true;
     private bool isAiming;
@@ -191,17 +189,11 @@ public class BallController : MonoBehaviour
         return null;
     }
 
-
     // Detects when the golf ball enters a trigger
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Hole"))
             inHole = true;
-    }
-
-    public int GetParCount()
-    {
-        return par;
     }
 
     public int GetStrokeCount()
