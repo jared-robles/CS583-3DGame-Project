@@ -1,10 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class BallController : MonoBehaviour
 {
     [SerializeField] private float shotPower = 20f;
-    [SerializeField] private float stopVelocity = 0.05f;
+    [SerializeField] private float stopVelocity = 0.01f;
     [SerializeField] private float maxDragDistance = 5f; // clamp power
 
     [SerializeField] private LineRenderer lineRenderer;
@@ -13,52 +13,78 @@ public class BallController : MonoBehaviour
 
     // Scoring purposes
     [SerializeField] private int par = 3; // Amount of strokes expected to clear the course
-    private int hits; // Ball hit counter
+    private int strokes = 0; // Ball hit counter
+    private StrokeCounter strokeCntr; // Stroke counter reference to script
+    private ParCounter parCntr; // Par counter reference to script
 
     private bool isIdle = true;
     private bool isAiming;
+    private bool inHole;
     private new Rigidbody rigidbody;
+
+    private Respawn respawn;
 
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+        respawn = GetComponent<Respawn>();
 
         if (lineRenderer)
         {
             lineRenderer.enabled = false;
             lineRenderer.positionCount = 2;
 
-    
             lineRenderer.useWorldSpace = true;
-
             lineRenderer.alignment = LineAlignment.TransformZ;
-
             lineRenderer.transform.forward = Vector3.up;
 
             lineRenderer.startWidth = 0.1f;
             lineRenderer.endWidth = 0.1f;
         }
+
+        // Get the references to the StrokeCounter script
+        // Prefab CounterUI must be in the scene
+        if (GameObject.Find("CounterUI") != null)
+        {
+            strokeCntr = GameObject.FindGameObjectWithTag("StrokeCntr").GetComponent<StrokeCounter>();
+        }
     }
 
     void FixedUpdate()
     {
-        if (rigidbody.linearVelocity.magnitude < stopVelocity)
-            Stop();
+        // Keep isIdle in sync with the real velocity
+        float speedSq = rigidbody.linearVelocity.sqrMagnitude;
+        float stopVelSq = stopVelocity * stopVelocity;
+
+        if (speedSq < stopVelSq)
+        {
+            // Only call Stop when we actually transition from moving -> idle
+            if (!isIdle)
+                Stop();
+        }
+        else
+        {
+            // Ball is clearly moving
+            isIdle = false;
+        }
     }
 
     void Update()
     {
-        if (!isAiming && isIdle && PressedThisFrame())
+        // Only start aiming if ball is idle
+        if (!isAiming && isIdle && PressedThisFrame() && !inHole)
         {
             isAiming = true;
             rigidbody.Sleep();
         }
+
         ProcessAim();
     }
 
     void ProcessAim()
     {
-        if (!isAiming || !isIdle) return;
+        // Don't aim if not in aiming mode, ball is not idle, or is in hole
+        if (!isAiming || !isIdle || inHole) return;
 
         var worldPoint = CastPointerRay();
         if (!worldPoint.HasValue) return;
@@ -71,7 +97,11 @@ public class BallController : MonoBehaviour
 
     void Shoot(Vector3 worldPoint)
     {
+
+        if (respawn != null) respawn.SaveShotCheckpoint();
+
         isAiming = false;
+
         if (lineRenderer) lineRenderer.enabled = false;
 
         Vector3 p = new Vector3(worldPoint.x, transform.position.y, worldPoint.z);
@@ -83,12 +113,14 @@ public class BallController : MonoBehaviour
         rigidbody.WakeUp();
         rigidbody.AddForce(impulse, ForceMode.Impulse);
 
-        hits++; // Increment hit counter
+        // Increment hit counter and update the stroke counter
+        strokes++;
+        if (GameObject.Find("CounterUI") != null) strokeCntr.UpdateStrokes(strokes);
 
+        // We just shot, so ball is not idle anymore
         isIdle = false;
 
         Debug.Log($"Shoot() impulse: {impulse}, drag:{drag:F2}, shotPower:{shotPower}");
-        Debug.Log($"Strokes: {hits} out of {par} pars");
     }
 
     void DrawLine(Vector3 worldPoint)
@@ -125,11 +157,13 @@ public class BallController : MonoBehaviour
         if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.wasPressedThisFrame) return true;
         return Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame;
     }
+
     bool ReleasedThisFrame()
     {
         if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.wasReleasedThisFrame) return true;
         return Mouse.current != null && Mouse.current.leftButton.wasReleasedThisFrame;
     }
+
     Vector2 PointerScreenPosition()
     {
         if (Touchscreen.current != null) return Touchscreen.current.primaryTouch.position.ReadValue();
@@ -144,23 +178,39 @@ public class BallController : MonoBehaviour
 
         Vector2 pos = PointerScreenPosition();
         Ray ray = cam.ScreenPointToRay(new Vector3(pos.x, pos.y, 0f));
-        if (Physics.Raycast(ray, out RaycastHit hit, 200f, groundMask, QueryTriggerInteraction.Ignore))
-            return hit.point;
+
+        // Infinite plane at the ball's height (XZ plane)
+        Plane plane = new Plane(Vector3.up, new Vector3(0f, transform.position.y, 0f));
+
+        if (plane.Raycast(ray, out float enter))
+        {
+            Vector3 hitPoint = ray.GetPoint(enter);
+            return hitPoint;
+        }
+
         return null;
     }
+
 
     // Detects when the golf ball enters a trigger
     void OnTriggerEnter(Collider other)
     {
-        // Compare the stroke counter to the course's par count
-        // Currently prints a debug message, have a function that does comparison logic with some UI elements to show results?
-        if (hits == 1) Debug.Log("Hole in one!");
-        else if (hits > 1 && hits < par) Debug.Log("Birdie!");
-        else if (hits == par) Debug.Log("Par");
-        else Debug.Log("Bogey");
+        if (other.CompareTag("Hole"))
+            inHole = true;
+    }
 
-        // Check if the trigger is the course hole using its tag and destroy the golf ball
-        // Trigger must use the "Hole" tag
-        if (other.CompareTag("Hole")) Destroy(this.gameObject);
+    public int GetParCount()
+    {
+        return par;
+    }
+
+    public int GetStrokeCount()
+    {
+        return strokes;
+    }
+
+    public bool GetGoalStatus()
+    {
+        return inHole;
     }
 }
