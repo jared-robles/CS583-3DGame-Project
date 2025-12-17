@@ -13,6 +13,8 @@ public class Course : MonoBehaviour
             {"Course One", 6},
             {"MovingCourse", 3},
             {"LargeCourse", 12},
+            {"RampJumpsCourse", 10},
+            {"SplitPathsCourse", 15}
         };
 
     private int parCount;
