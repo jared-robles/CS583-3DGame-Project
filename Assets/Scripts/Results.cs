@@ -18,11 +18,13 @@ public class Results : MonoBehaviour
     private bool _inHole; // Store ball score status
 
     private BallController _ball; // Reference to BallController script
+    private Course _course; // Reference to Course script
     private TextMeshProUGUI _txt; // Reference to the text component
 
     void Start()
     {
         _ball = GameObject.FindGameObjectWithTag("Ball").GetComponent<BallController>(); // BallController script
+        _course = Camera.main.GetComponent<Course>(); // Course script from the main camera
         _txt = GetComponent<TextMeshProUGUI>(); // This object's TMPro component
     }
 
@@ -43,7 +45,7 @@ public class Results : MonoBehaviour
     {
         // Get stroke and par counts from the ball
         _strokes = _ball.GetStrokeCount();
-        _par = _ball.GetParCount();
+        _par = _course.GetParCount();
 
         // Compare number of strokes to the current par
         // Set the respective text and color gradient to its result
