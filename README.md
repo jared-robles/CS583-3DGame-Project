@@ -1,4 +1,4 @@
-# Mini Golf (working title)
+# PUTT IT IN
 
 Members: Jared Robles, Justin Cruz, Brandon Perillo, Justin Aguiluz
 
@@ -20,6 +20,8 @@ Move the mouse cursor to aim where the ball will go and use the left mouse butto
 
 ## General Goals for Each Member
 
-- Level Design: Brandon Perillo
+- Level Design: Brandon Perillo, Jared Robles
 - Game Mechanics/Programming: Jared Robles, Justin Aguiluz
 - UI Design: Justin Cruz
+- Sound Design: Justin Cruz
+- Animation Design: Justin Aguiluz
