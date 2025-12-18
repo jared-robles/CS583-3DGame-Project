@@ -28,6 +28,12 @@ public class BallController : MonoBehaviour
     public AudioClip holeSound;
     private AudioSource audioSource;
 
+    // Pop Up Panel
+    public GameObject holeCompletePopUpPrefab;
+    public float popupDelay = 2f;
+    private GameObject popupInstance;
+    public Canvas mainCanvas;
+
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -207,13 +213,22 @@ public class BallController : MonoBehaviour
             // For audio when scoring
             audioSource.PlayOneShot(holeSound);
 
+            // Pop up message display
+            StartCoroutine(ShowPopupDelay());
         }
             
 
 
     }
 
-    
+    IEnumerator ShowPopupDelay()
+    {
+        yield return new WaitForSeconds(popupDelay);
+
+        Canvas mainCanvas = FindFirstObjectByType<Canvas>();
+
+        popupInstance = Instantiate(holeCompletePopUpPrefab, mainCanvas.transform);
+    }
 
     public int GetStrokeCount()
     {
