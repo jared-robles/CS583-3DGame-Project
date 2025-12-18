@@ -22,31 +22,21 @@ public class CourseSelection : MonoBehaviour
 
     public void StartCourse1()
     {
-        SceneManager.LoadScene("Course One");
+        SceneManager.LoadScene("");
     }
 
     public void StartCourse2()
     {
-        SceneManager.LoadScene("LargeCourse");
+        SceneManager.LoadScene("");
     }
 
     public void StartCourse3()
     {
-        SceneManager.LoadScene("MovingCourse");
+        SceneManager.LoadScene("");
     }
 
     public void StartCourse4()
     {
-        SceneManager.LoadScene("RampJumpsCourse");
-    }
-
-    public void StartCourse5()
-    {
-        SceneManager.LoadScene("SplitPathsCourse");
-    }
-
-    public void GoBack()
-    {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("");
     }
 }
