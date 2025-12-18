@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
 
@@ -6,6 +7,8 @@ public class Results : MonoBehaviour
 {
     [Header("Inscribed")]
     public Animator animator;
+    public Animator mmButtonAnimator;
+    public Animator csButtonAnimator;
     public TMP_ColorGradient holeInOneCG;
     public TMP_ColorGradient birdieCG;
     public TMP_ColorGradient parCG;
@@ -42,6 +45,8 @@ public class Results : MonoBehaviour
 
         // Set the animator to play the result text animation when scored
         animator.SetBool("scored", _inHole);
+        mmButtonAnimator.SetBool("scored", _inHole);
+        csButtonAnimator.SetBool("scored", _inHole);
     }
 
     void DetermineResult()
@@ -90,5 +95,15 @@ public class Results : MonoBehaviour
             _txt.colorGradientPreset = bogeyCG;
             _txt.text = "Bogey";
         }
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void CourseSelect()
+    {
+        SceneManager.LoadScene("CourseSelection");
     }
 }
