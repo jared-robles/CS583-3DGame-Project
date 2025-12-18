@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class BallController : MonoBehaviour
@@ -30,7 +29,6 @@ public class BallController : MonoBehaviour
 
     void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
         rigidbody = GetComponent<Rigidbody>();
         respawn = GetComponent<Respawn>();
 
@@ -102,8 +100,6 @@ public class BallController : MonoBehaviour
 
     void Shoot(Vector3 worldPoint)
     {
-        // For putting sound when shooting
-        audioSource.PlayOneShot(puttSound);
 
         if (respawn != null) respawn.SaveShotCheckpoint();
 
