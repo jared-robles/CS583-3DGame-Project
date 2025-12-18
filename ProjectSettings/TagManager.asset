@@ -9,7 +9,6 @@ TagManager:
   - ParCntr
   - StrokeCntr
   - OutOfBounds
-  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -17,7 +16,7 @@ TagManager:
   - 
   - Water
   - UI
-  - Ball
+  - 
   - Ground
   - 
   - 

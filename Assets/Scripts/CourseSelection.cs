@@ -27,6 +27,19 @@ public class CourseSelection : MonoBehaviour
     public void StartCourse4()
     {
         SceneManager.LoadScene("RampJumpsCourse");
+<<<<<<< HEAD
+=======
+    }
+
+    public void StartCourse5()
+    {
+        SceneManager.LoadScene("SplitPathsCourse");
+    }
+
+    public void GoBack()
+    {
+        SceneManager.LoadScene("MainMenu");
+>>>>>>> main
     }
 
     public void StartCourse5()
