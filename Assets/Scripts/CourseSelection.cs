@@ -44,4 +44,9 @@ public class CourseSelection : MonoBehaviour
     {
         SceneManager.LoadScene("SplitPathsCourse");
     }
+
+    public void GoBack()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }
