@@ -3,17 +3,6 @@ using UnityEngine.SceneManagement;
 
 public class CourseSelection : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void StartCourseP()
     {
@@ -22,21 +11,32 @@ public class CourseSelection : MonoBehaviour
 
     public void StartCourse1()
     {
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene("Course One");
     }
 
     public void StartCourse2()
     {
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene("LargeCourse");
     }
 
     public void StartCourse3()
     {
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene("MovingCourse");
     }
 
     public void StartCourse4()
     {
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene("RampJumpsCourse");
     }
+
+    public void StartCourse5()
+    {
+        SceneManager.LoadScene("SplitPathsCourse");
+    }
+
+    public void GoBack()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
 }

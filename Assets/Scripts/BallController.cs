@@ -22,8 +22,15 @@ public class BallController : MonoBehaviour
 
     private Respawn respawn;
 
+    // Audio purposes
+    public AudioClip puttSound;
+    public AudioClip holeSound;
+    private AudioSource audioSource;
+
+
     void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         rigidbody = GetComponent<Rigidbody>();
         respawn = GetComponent<Respawn>();
 
@@ -95,6 +102,10 @@ public class BallController : MonoBehaviour
 
     void Shoot(Vector3 worldPoint)
     {
+
+        // For putting sound when shooting
+        audioSource.PlayOneShot(puttSound);
+
 
         if (respawn != null) respawn.SaveShotCheckpoint();
 
@@ -193,7 +204,13 @@ public class BallController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Hole"))
+        {
             inHole = true;
+
+            // For audio when scoring
+            audioSource.PlayOneShot(holeSound);
+
+        }
     }
 
     public int GetStrokeCount()
