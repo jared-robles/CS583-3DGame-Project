@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2863991513373251126}
   - component: {fileID: 4443999278372620760}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,8 +199,16 @@ PrefabInstance:
       value: Golf Ball
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 4731e57bf9d754009bad19194ed399fe, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4731e57bf9d754009bad19194ed399fe, type: 3}
       propertyPath: m_TagString
       value: Ball
+      objectReference: {fileID: 0}
+    - target: {fileID: 7677957229588792445, guid: 4731e57bf9d754009bad19194ed399fe, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -261,7 +269,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4776879002687012002}
-  m_Material: {fileID: 13400000, guid: e78f5b345cfbb0148a23d0b438bb83a3, type: 2}
+  m_Material: {fileID: 13400000, guid: 974fa6197f52dbb469bdcbd4bca39c58, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
