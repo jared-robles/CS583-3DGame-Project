@@ -17,6 +17,21 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/CourseSelection.unity
     guid: 33de203204588a345ae7ec137c497560
+  - enabled: 1
+    path: Assets/LargeCourse.unity
+    guid: a107cec0d30a44f04a89e969fb29462f
+  - enabled: 1
+    path: Assets/MovingCourse.unity
+    guid: ac037eaf664394a5aba64d78c16c2157
+  - enabled: 1
+    path: Assets/RampJumpsCourse.unity
+    guid: 596e66000b38141a3902e1fe28917786
+  - enabled: 1
+    path: Assets/SplitPathsCourse.unity
+    guid: 1a66589734d82407baa990791049522d
+  - enabled: 1
+    path: Assets/Course One.unity
+    guid: 8a2ad1bd096598f459dcba71714e7b69
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: f4d921451a33fe143a69fe5bbb2dbd21, type: 3}
   m_UseUCBPForAssetBundles: 0
