@@ -16,8 +16,4 @@ public class MusicManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> main
 }

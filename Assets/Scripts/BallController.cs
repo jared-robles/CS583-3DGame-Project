@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class BallController : MonoBehaviour
@@ -28,14 +27,6 @@ public class BallController : MonoBehaviour
     public AudioClip holeSound;
     private AudioSource audioSource;
 
-<<<<<<< HEAD
-=======
-    // Pop Up Panel
-    public GameObject holeCompletePopUpPrefab;
-    public float popupDelay = 2f;
-    private GameObject popupInstance;
-    public Canvas mainCanvas;
->>>>>>> main
 
     void Awake()
     {
@@ -111,8 +102,6 @@ public class BallController : MonoBehaviour
 
     void Shoot(Vector3 worldPoint)
     {
-        // For putting sound when shooting
-        audioSource.PlayOneShot(puttSound);
 
         // For putting sound when shooting
         audioSource.PlayOneShot(puttSound);
@@ -214,36 +203,14 @@ public class BallController : MonoBehaviour
     // Detects when the golf ball enters a trigger
     void OnTriggerEnter(Collider other)
     {
-<<<<<<< HEAD
         if (other.CompareTag("Hole"))
         {
-=======
-        if (other.CompareTag("Hole")) {
->>>>>>> main
             inHole = true;
 
             // For audio when scoring
             audioSource.PlayOneShot(holeSound);
 
-<<<<<<< HEAD
         }
-=======
-            // Pop up message display
-            StartCoroutine(ShowPopupDelay());
-        }
-            
-
-
-    }
-
-    IEnumerator ShowPopupDelay()
-    {
-        yield return new WaitForSeconds(popupDelay);
-
-        Canvas mainCanvas = FindFirstObjectByType<Canvas>();
-
-        popupInstance = Instantiate(holeCompletePopUpPrefab, mainCanvas.transform);
->>>>>>> main
     }
 
     public int GetStrokeCount()
