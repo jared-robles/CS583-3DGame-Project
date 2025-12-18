@@ -152,15 +152,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 4731e57bf9d754009bad19194ed399fe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 4.21
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4731e57bf9d754009bad19194ed399fe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.379
+      value: 10.081
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4731e57bf9d754009bad19194ed399fe, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 163.19
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4731e57bf9d754009bad19194ed399fe, type: 3}
       propertyPath: m_LocalRotation.w
@@ -190,6 +190,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2151662586499113684, guid: 4731e57bf9d754009bad19194ed399fe, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: bd2116a06e4498c4cad4997ba6a11a15, type: 2}
     - target: {fileID: 919132149155446097, guid: 4731e57bf9d754009bad19194ed399fe, type: 3}
       propertyPath: m_Name
       value: Golf Ball
@@ -214,6 +218,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4731e57bf9d754009bad19194ed399fe, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5974799667892833648}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4731e57bf9d754009bad19194ed399fe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1737897995823276529}
   m_SourcePrefab: {fileID: 100100000, guid: 4731e57bf9d754009bad19194ed399fe, type: 3}
 --- !u!1 &4776879002687012002 stripped
 GameObject:
@@ -228,9 +235,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4776879002687012002}
   serializedVersion: 5
-  m_Mass: 0.12
+  m_Mass: 0.1
   m_LinearDamping: 0.5
-  m_AngularDamping: 0.05
+  m_AngularDamping: 0.5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -281,14 +288,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallController
   shotPower: 1
-  stopVelocity: 0.05
+  stopVelocity: 0.2
   maxDragDistance: 1
   lineRenderer: {fileID: 4443999278372620760}
   groundMask:
     serializedVersion: 2
     m_Bits: 128
   lineLift: 0.003
-  par: 3
+--- !u!114 &1737897995823276529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4776879002687012002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e527b7cf57a8f345978a25e4db2680b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Respawn
+  yKillHeight: -5
+  spawnOffset: {x: 0, y: 0.1, z: 0}
 --- !u!4 &5260541400526497304 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4731e57bf9d754009bad19194ed399fe, type: 3}
